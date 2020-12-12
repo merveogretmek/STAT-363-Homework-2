@@ -1,0 +1,373 @@
+\documentclass{article}
+
+
+% Formatting
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage[titletoc,title]{appendix}
+\usepackage{setspace}
+\setlength{\parindent}{0 cm}
+
+
+
+
+% Math
+\usepackage{amsmath,amsfonts,amssymb,mathtools}
+\usepackage{upquote}
+
+% Images
+\usepackage{graphicx,float}
+
+% Tables
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{algorithmic}
+
+% Code syntax highlighting
+\usepackage{minted}
+\usemintedstyle{borland}
+
+% References
+\usepackage{biblatex}
+\addbibresource{references.bib}
+
+% Title content
+\title{STAT 363 Homework 2}
+\author{Merve Ogretmek}
+\date{November 29, 2020}
+
+\linespread{1.25}
+\begin{document}
+
+\maketitle
+\section{}
+
+\textbf{a. (Original Question)} 
+Ordinary least squares estimators are 
+
+
+\begin{equation}
+%
+    \hat{\beta} = 
+    \begin{bmatrix} 
+    \hat{\beta_0} \\ 
+    \hat{\beta_1} \\ \hat{\beta_2}
+    \end{bmatrix}
+%    
+\end{equation}
+
+where $\hat{\beta}$ is a 3x1 matrix. To find the OLS estimator, we need to calculate the following
+
+\begin{equation}
+    \hat{\beta} = (X'X)^{-1}X'y 
+\end{equation}
+
+by putting the values given in the question, we get
+
+\begin{equation}
+    \hat{\beta} = 
+    \begin{bmatrix} 
+    8.6 & 0.081 & -0.0099 \\
+    0.08 & 0.0021 & -0.00013 \\
+    -0.0099 & -0.00013 & 0.000012
+    \end{bmatrix} 
+    \begin{bmatrix} 
+    924.0  \\
+    20299.8  \\
+    935906.0 
+    \end{bmatrix} 
+    = 
+    \begin{bmatrix} 
+    325.2144  \\
+    -5.1182  \\
+    -0.5557
+    \end{bmatrix} 
+\end{equation}
+%
+
+Fitted model can be written as
+
+\begin{equation}
+    \hat{Y} = 325.2144 - 5.1182X_1 - 0.5557X_2
+\end{equation}
+\\
+
+\textbf{a. (Updated Question)} $\hat{\beta}$ matrix is given as
+
+\begin{equation}
+    \hat{\beta} = 
+    \begin{bmatrix}
+    350.99427 \\
+    -1.27199 \\
+    -0.15390
+    \end{bmatrix}
+\end{equation}
+
+Then, the fitted model is
+\begin{equation}
+     \hat{Y} = 350.99427 - 1.27199X_1 - 0.1539X_2
+\end{equation}
+
+\newpage
+\textbf{b.} Estimated variance can be found by the formula
+
+\begin{equation}
+    {\hat{\sigma}}^2 = MS_{Res} = \frac{SS_{Res}}{n-p} = \frac{y'y - \hat{\beta}'X'y}{n-p} = \frac{SS_{Res}}{n-p} = \frac{\sum_{i=1}^{6} y_i^2 - \hat{\beta}'X'y}{n-p}
+\end{equation}
+
+where n is the number of observations and p is the number of parameters, for this question n = 6 and p = 3. By putting the values according to the data in question
+
+\begin{equation}
+\hat{\sigma}^2 = \frac{156408
+    -\begin{bmatrix} 
+    350.99427  & -1.27199 & -0.15390
+    \end{bmatrix} 
+    \begin{bmatrix} 
+    924.0 \\
+    20299.8 \\
+    935906.0
+    \end{bmatrix}}{6-3}
+\end{equation}
+
+\begin{equation}
+    \hat{\sigma}^2 = \frac{156408-(154461.62)}{3} = 648.8
+\end{equation}
+
+\\
+
+\textbf{c.}
+To find the estimated covariance between the estimators of slope terms, we need to estimate the covariance matrix. Covariance matrix calculated as following
+
+\begin{equation}
+    \hat{Cov}(\hat{\beta}) = \hat{\sigma}^2(X'X)^{-1}
+\end{equation}
+
+We have found that $\hat{\sigma}^2$ = 648.8, so it yields
+
+\begin{equation}
+    \hat{Cov}(\hat{\beta}) = 648.8
+    \begin{bmatrix} 
+    8.6 & 0.081 & -0.0099 \\
+    0.081 & 0.0021 & -0.00013 \\
+    -0.0099 & -0.00013 & 0.000012
+    \end{bmatrix} 
+\end{equation}
+
+\begin{equation}
+    \hat{Cov}(\hat{\beta}) =
+    \begin{bmatrix}
+    \hat{Cov} & \hat{\beta_0} & \hat{\beta_1} & \hat{\beta_2} \\
+    \hat{\beta_0} & 5579.68 & 52.5528  &-6.42312 \\ \hat{\beta_1} &52.5528 & 1.36248 & -0.084344 \\ 
+    \hat{\beta_2} &-6.42312 & -0.084344 & 0.0077856
+    \end{bmatrix} 
+\end{equation}
+
+Above figure states that 
+
+
+\begin{align}
+\begin{split}
+\hat{Cov}(\hat{\beta_0},\hat{\beta_0}) = \hat{Var}(\hat{\beta_0}) = 5579.68
+\\
+\hat{Cov}(\hat{\beta_1},\hat{\beta_1}) =
+\hat{Var}(\hat{\beta_1}) =   1.36248
+\\
+\hat{Cov}(\hat{\beta_2},\hat{\beta_2}) =
+\hat{Var}(\hat{\beta_2}) = 0.0077856
+\\
+\hat{Cov}(\hat{\beta_0},\hat{\beta_1}) = \hat{Cov}(\hat{\beta_1},\hat{\beta_0}) = 52.5528
+\\
+\hat{Cov}(\hat{\beta_0},\hat{\beta_2}) =
+\hat{Cov}(\hat{\beta_2},\hat{\beta_0}) =  -{6.42312}
+\\
+\hat{Cov}(\hat{\beta_1},\hat{\beta_2}) =
+\hat{Cov}(\hat{\beta_2},\hat{\beta_1}) = 
+-{0.084344}
+\end{split}
+\end{align}
+
+\newpage
+\textbf{d.} First of all, to make inference by using hypothesis testing we need to assume that $\epsilon$(error) has identical and independent normal distribution with 0 mean and $\sigma^2$(constant variance) for every observation. For testing the overall significance of regression, we need to test the following hypothesis
+
+\begin{equation}
+    H_0: \beta_1 = \beta_2 = 0 \ \ \text{against} \ \ H_1: \text{at least one them is not equal to 0}
+\end{equation}
+
+To find the test statistic we need to calculate $MS_R$ and $MS_{Res}$. We have already found that $MS_{Res} = 648.8$. $MS_R$ is 
+
+\begin{equation}
+    MS_R = \frac{SS_R}{k} = \frac{\hat{\beta}'X'y - \frac{(\sum_{i=1}^{6}y_i)^2}{n}
+}{k} = \frac{\begin{bmatrix}
+    350.99427 & -1.27199 &  -0.15390
+    \end{bmatrix} 
+    \begin{bmatrix} 
+    924.0 \\
+    20299.8 \\
+    935906.0
+    \end{bmatrix} - \frac{924^2}{6}}{2}
+\end{equation}
+
+\begin{equation}
+    MS_R = \frac{154461.62 - 142296}{2} = 6082.81
+\end{equation}
+
+Test statistic is
+
+\begin{equation}
+    F_0 = \frac{MS_R}{MS_{Res}} = \frac{6082.81}{648.8} =  9.375
+\end{equation}
+
+and critical value at 0.05 significance level and degrees of freedom (2,29) is 
+
+\begin{equation}
+    F_{2,29} = 3.328
+\end{equation}
+
+Since $F_0 = 9.375 > 3.328 = F_{2,29}$, we reject the null hypothesis and conclude that at least one of the independent variables has a significant linear relationship with dependent variable.
+
+\section{}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.60]{ANOVA.png}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.60]{Summary.png}
+\end{figure}
+
+
+\newpage
+\textbf{a.}
+Fitted model is
+
+\begin{equation}
+    \hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + \hat{\beta_2}X_2
+\end{equation}
+
+where $\hat{Y}$ is the predicted value of systolic blood pressure, $\hat{\beta_0}$ is the estimated intercept, $\hat{\beta_1}$ is the estimated coefficient of $X_1$, $X_1$ is the observed age, $\hat{\beta_2}$ is the estimated coefficient of $X_2$ and $X_2$ is the observed QUET score. By looking at the estimates from table, we can write
+
+\begin{equation}
+     \hat{Y} = 55.32 + 1.04X_1 + 9.72442X_2
+\end{equation}
+
+\textbf{b.} $\hat{\beta_1}$ = 1.04 is corresponding to the expected change in y when we increase $X_1$ by one unit while holding the $X_2$ same. $\hat{\beta_2}$ = 9.72442 is corresponding to the expected change in y when we increase $X_2$ by one unit while holding the $X_1$ same.
+\\
+
+\textbf{c.} To conduct a hypothesis test, we need to assume that error term has independent and identical normal distribution with mean zero and constant variance $\sigma^2$. The hypothesis is 
+
+\begin{equation}
+    H_0: \beta_1 = \beta_2 = 0 \ \ \text{against} \ \ H_1: \text{at least one them is not equal to 0}
+\end{equation}
+
+The test statistic is
+
+\begin{equation}
+    F_0 = \frac{MS_R}{MS_{Res}} = \frac{2060.29612}{79.4957} = 25.9170
+\end{equation}
+
+and critical value at 0.05 significance level and degrees of freedom (2,29) is 
+
+\begin{equation}
+    F_{2,29} = 3.328
+\end{equation}
+
+Since $F_0 = 25.9170 > 3.328 = F_{2,29}$, we reject the null hypothesis and conclude that at least one of the independent variables has a significant linear relationship with dependent variable.
+
+From the p-value approach
+
+
+
+\begin{align}
+    \begin{split}
+         p-value = 2*P(t_{29} > 25.9170)
+         \\
+         p-value < 0.0001 < \alpha = 0.05
+    \end{split}
+\end{align}
+
+Either way, we can reject the null hypothesis and say that at least one of the coefficients is not equal to zero.
+\\
+
+\textbf{d.} Again, we need to assume that $\epsilon$ is distributed iid with normal distribution where mean is zero and variance is $\sigma^2$. For $\beta_1$,
+\\
+
+-\textbf{Hypothesis:} 
+
+\begin{equation}
+    H_0: \beta_1 = 0 \ \ \text{against} \ \  H_1: \beta_1 \neq 0
+\end{equation}
+
+-\textbf{Test Statistic:}
+
+
+\begin{equation}
+    t_0 = \frac{\hat{\beta_1} - \beta_{10}}{se(\hat{\beta_1})} = \frac{1.04}{0.38566} = 2.71
+\end{equation}
+
+-\textbf{Critical Value:}
+
+\begin{equation}
+    t_{29,0.025} = 2.045
+\end{equation}
+
+-\textbf{Conclusion:}
+Since $t_0 = 2.71 > 2.045 =  t_{29,0.025}$, we can reject the null hypothesis and say that there is a significant association between age and systolic blood pressure while QUET score is still in the model.
+\\
+
+For $\beta_2$,
+\\
+
+-\textbf{Hypothesis:} 
+
+\begin{equation}
+    H_0: \beta_2 = 0 \ \ \text{against} \ \  H_1: \beta_2 \neq 0
+\end{equation}
+
+-\textbf{Test Statistic:}
+
+\begin{equation}
+    t_0 = \frac{\hat{\beta_2} - \beta_{20}}{se(\hat{\beta_2})} = \frac{9.72442}{5.40246} = 1.80
+\end{equation}
+
+-\textbf{Critical Value:}
+
+\begin{equation}
+    t_{29,0.025} = 2.045
+\end{equation}
+
+-\textbf{Conclusion:}
+Since $t_0 = 1.80 < 2.045 =  t_{29,0.025}$, we fail to reject the null hypothesis and say that there is no significant linear association between QUET score and systolic blood pressure while age is still in the model.
+\\
+
+The above conclusions can also be made by looking at the p-values. P-value for $\hat{\beta_1}$ is 0.0109 which is smaller than $\alpha=0.05$, so we can again say there is a significant relationship. However, p-value for $\hat{\beta_1}$ is 0.0815 which is larger than $\alpha=0.05$, so we say there is no significant linear relationship.
+\\
+\newpage
+\textbf{e.} Fitted equation is
+
+\begin{equation}
+     \hat{Y} = 55.32 + 1.04X_1 + 9.72442X_2
+\end{equation}
+
+\begin{align}
+    \begin{split}
+        \hat{Y} = 55.32 + 1.04X_1 + 9.72442X_2
+        \\
+        55.32 + (1.04*38) + (9.72442*2.52) = 119.34
+    \end{split}
+\end{align}
+
+Predicted y for given x values is equal to 119.34.
+
+
+\textbf{f.} For the given question we need to calculate the $R^2$:
+
+\begin{equation}
+    R^2 = \frac{SS_R}{SS_T} = \frac{4120.59225}{6425.96875} = 0.64
+\end{equation}
+\\
+
+From above calculation, we can say that 0.64 percent of the variability in SBP can be explained by the model.
+
+\end{document}
+
